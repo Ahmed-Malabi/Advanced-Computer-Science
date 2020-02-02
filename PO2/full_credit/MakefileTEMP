@@ -1,0 +1,17 @@
+CXXFLAGS = --std=c++17
+
+SRC1 = color.cpp
+OBJ1 = $(SRC1:.c=.o)
+EXE = $(SRC1:.c=.e)
+
+HFILES = color.h
+
+CFLAGS = -g
+
+all : $(EXE)
+ 
+$(EXE): $(OBJ1) $(OBJ2)
+	$(CXX) $(CXXFLAGS) $(OBJ1) $(OBJ2) -o $(EXE) 
+
+$(OBJ1) : $(SRC1) $(HFILES)
+	$(CXX) $(CXXFLAGS) $(SRC1) -o $(OBJ1)

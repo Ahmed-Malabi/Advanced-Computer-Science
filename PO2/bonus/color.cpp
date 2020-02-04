@@ -15,7 +15,7 @@ Color::Color(int red, int green, int blue) : _red{red}, _green{green}, _blue{blu
 
 std::string Color::to_string()
 {
-	return "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ":" + std::to_string(magnitude()) + ")\n";
+	return "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ":" + std::to_string(magnitude()) + ")";
 }
 
 std::string Color::colorize(std::string text)
@@ -30,5 +30,11 @@ int Color::magnitude()
 
 int Color::compare(const Color& rhs)
 {
-	
+	Color cmpTo = rhs;
+	if(this->magnitude() < cmpTo.magnitude())
+		return -1;
+	else if(this->magnitude() == cmpTo.magnitude())
+		return 0;
+	else 
+		return 1;
 }

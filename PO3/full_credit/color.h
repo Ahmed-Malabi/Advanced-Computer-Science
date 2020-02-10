@@ -11,8 +11,8 @@ class Color
 	Color();
 	std::string to_string();
 	std::string colorize(std::string text);
-	friend std::ostream& operator<<(ostream& ost, const Color& color);
-	friend std::ostream& operator>>(ostream& ost, const Color& color);
+	friend std::ostream& operator<<(std::ostream& ost, const Color& color);
+	friend std::istream& operator>>(std::istream& ist, Color& color);
   private:
 	int _red, _green, _blue;
 	bool reset;

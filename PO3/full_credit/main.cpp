@@ -14,7 +14,7 @@ int main()
 	Color userC{0,0,0};
 	std::cout << "Enter a value 0-255 for red, green and blue \"(RED, GREEN, BLUE)\")" << std::endl, std::cin >> userC;
 	
-	std::cout << userC << Color{} << std::endl;
+	std::cout << userC << "Hello I am your color!" << Color{} << std::endl;
 
 	return 0;
 }

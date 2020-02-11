@@ -25,7 +25,7 @@ std::string Color::colorize(std::string text)
 
 int Color::magnitude()
 {
-	return ((((float)_red/255)*21)*2.55) + ((((float)_green/255)*71)*2.55) + ((((float)_blue/255)*8)*2.55);
+	return (((_red/255)*21)*2.55) + (((_green/255)*71)*2.55) + (((_blue/255)*8)*2.55);
 }
 
 int Color::compare(const Color& rhs)

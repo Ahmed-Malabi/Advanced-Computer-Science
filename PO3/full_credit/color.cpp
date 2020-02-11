@@ -46,18 +46,20 @@ std::istream& operator>>(std::istream& ist, Color& color)
 	
 	ist >> str;
 	
-	str.erase(std::remove(str.begin(),str.end(),"("),str.end());
-	str.erase(std::remove(str.begin(),str.end(),")"),str.end());
+	str.erase(std::remove(str.begin(),str.end(),')'),str.end());
+	str.erase(std::remove(str.begin(),str.end(),'('),str.end());
+	str.erase(std::remove(str.begin(),str.end(),' '),str.end());
 	
 	std::string token;
 	
 	token = str.substr(0,str.find(delim));
 	color._red = stoi(token);
-	str.erase(token.length()+2);
+	std::cout << token;
+	str.erase(token.length()+1);
 	
 	token = str.substr(0,str.find(delim));
 	color._green = stoi(token);
-	str.erase(token.length()+2);
+	str.erase(token.length()+1);
 	
 	token = str.substr(0,str.find(delim));
 	color._blue = stoi(token);

@@ -1,19 +1,24 @@
 CXXFLAGS += --std=c++17
 
-all: main
+all: main debug logger
+
+
 debug: CXXFLAGS += -g
 debug: main
+
+logger: CXXFLAGS += -DLOGGER
+logger: main
 
 rebuild: clean main
 
 
-main: test.o coin.o *.h
+main: test.o coin.o
 	$(CXX) $(CXXFLAGS) -o main test.o coin.o
 	
 test.o: test.cpp
 	$(CXX) $(CXXFLAGS) -c test.cpp
 	
-coin.o: coin.cpp * .h
+coin.o: coin.cpp
 	$(CXX) $(CXXFLAGS) -c coin.cpp
 	
 clean:

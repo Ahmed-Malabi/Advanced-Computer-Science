@@ -2,9 +2,9 @@
 #define __COIN_H
 
 #include <string>
-#include <ostream>
+#include <iostream>
 
-typedef int year;
+typedef int Year;
 
 enum class Coin_size
 {
@@ -17,16 +17,16 @@ enum class Coin_size
 class Coin
 {
   public:
-  	Coin(Coin_size Size, year Year);
+  	Coin(Coin_size Size, Year Year);
   	Coin(const Coin& rhs);
   	Coin& operator=(const Coin& rhs);
   	~Coin();
-  	void add_note(string s);
-  	friend ostream& operator<< (ostream& ost, const Coin& coin);
+  	void add_note(std::string s);
+  	friend std::ostream& operator<< (std::ostream& ost, const Coin& coin);
   private:
 	Coin_size _size;
-	year _year;
-	string* _notes;
-}
+	Year _year;
+	std::string* _notes;
+};
 
 #endif

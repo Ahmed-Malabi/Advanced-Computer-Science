@@ -1,75 +1,79 @@
 #include "coin.h"
-#include <ostream>
+#include "logger.h"
+#include <iostream>
 #include <string>
 
 
-Coin(Coin_size Size, year Year) : _size{Size}, _year{}
+Coin::Coin(Coin_size Size, Year Year) : _size{Size}, _year{Year}
 {
 	if(_size == Coin_size::PENNY && _year < 1793)
-		throw "ERROR: that penny can not physically exist!";
+		throw std::runtime_error{"ERROR: that penny can not physically exist!"};
 		
 	else if(_size == Coin_size::NICKEL && _year < 1866)
-		throw "ERROR: that nickel can not physically exist!";
+		throw std::runtime_error{"ERROR: that nickel can not physically exist!"};
 		
 	else if(_size == Coin_size::DIME && _year < 1946)
-		throw "ERROR: that dime can not physically exist!";
+		throw std::runtime_error{"ERROR: that dime can not physically exist!"};
 		
 	else if(_size == Coin_size::QUARTER && _year < 1796)
-		throw "ERROR: that quarter can not physically exist!";
+		throw std::runtime_error{"ERROR: that quarter can not physically exist!"};
 		
 	else
 	{
 		if(_size != Coin_size::PENNY && _size != Coin_size::NICKEL && _size != Coin_size::DIME && _size != Coin_size::QUARTER)
-			throw "ERROR: that coin does not exist"
+			throw std::runtime_error{"ERROR: that kind of coin does not exist"};
 	}
-	_note = nullptr;
-	LOG("Coin::Coin(" + _size + "," + _year + ")");
+	this->_notes = nullptr;
+	LOG("Coin::Coin");
 }
 
-Coin(const Coin& rhs) : _size{rhs._size}, _year{rhs._year}
+Coin::Coin(const Coin& rhs) : _size{rhs._size}, _year{rhs._year}, _notes(new std::string(*rhs._notes))
 {
-	_note = new string*(rhs._note);
+	LOG("Coin::Coin Copy constructor");
 }
 
-Coin& operator=(const Coin& rhs)
+Coin& Coin::operator=(const Coin& rhs)
 {
-	_size = rhs._size;
-	_year = rhs._year;
-	_note = new string*(rhs._note);
+	this->_size = rhs._size;
+	this->_year = rhs._year;
+	this->_notes = new std::string(*rhs._notes);
+	LOG("Coin::Coin Copy operator=");
+	
+	return *this;
 }
 
-~Coin()
+Coin::~Coin()
 {
-	delete _note;
+	delete this->_notes;
 	LOG("Coin::~Coin");
 }
 
-void add_note(string s)
+void Coin::add_note(std::string s)
 {
-	if(!_notes)
+	if(!this->_notes)
 	{
-		_notes = new string*(s);
+		this->Coin::_notes = new std::string(s);
 	}
 	else
 	{
-		_notes.append(" ");
-		_notes.append(s);
+		this->Coin::_notes->append(" ");
+		this->Coin::_notes->append(s);
 	}
 }
 
-ostream& operator<< (ostream& ost, const Coin& coin)
+std::ostream& operator<< (std::ostream& ost, const Coin& coin)
 {
 	if(coin._size == Coin_size::PENNY)
-		ost << coin._year << " penny\n" << coin._note << std::endl;
+		ost << coin._year << " penny\n" << *coin._notes << std::endl;
 		
 	else if(coin._size == Coin_size::NICKEL)
-		ost << coin._year << " nickel\n" << coin._note << std::endl;
+		ost << coin._year << " nickel\n" << *coin._notes << std::endl;
 		
 	else if(coin._size == Coin_size::DIME)
-		ost << coin._year << " dime\n" << coin._note << std::endl;
+		ost << coin._year << " dime\n" << *coin._notes << std::endl;
 		
 	else
-		ost << coin._year << " quarter\n" << coin._note << std::endl;
+		ost << coin._year << " quarter\n" << *coin._notes << std::endl;
 	
 	return ost;
 }

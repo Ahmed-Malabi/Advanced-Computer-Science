@@ -22,7 +22,7 @@ class Coin
   	Coin& operator=(const Coin& rhs);
   	~Coin();
   	void add_note(string s);
-  	friend ostream& operator<< (ostream& ost, const Coint& coin);
+  	friend ostream& operator<< (ostream& ost, const Coin& coin);
   private:
 	Coin_size _size;
 	year _year;

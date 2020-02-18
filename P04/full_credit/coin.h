@@ -4,20 +4,20 @@
 #include <string>
 #include <ostream>
 
-typedef year int;
+typedef int year;
 
 enum class Coin_size
 {
 	PENNY = 1,
 	NICKEL = 5,
 	DIME = 10,
-	QUARTER = 25;
-}
+	QUARTER = 25
+};
 
 class Coin
 {
   public:
-  	Coin(Coin::Coin_size Size, year Year);
+  	Coin(Coin_size Size, year Year);
   	Coin(const Coin& rhs);
   	Coin& operator=(const Coin& rhs);
   	~Coin();

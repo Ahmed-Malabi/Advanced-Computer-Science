@@ -3,7 +3,7 @@
 #include <string>
 
 
-Coin(Coin::Coin_size Size, year Year) : _size{Size}, _year{}
+Coin(Coin_size Size, year Year) : _size{Size}, _year{}
 {
 	if(_size == Coin_size::PENNY && _year < 1793)
 		throw "ERROR: that penny can not physically exist!";

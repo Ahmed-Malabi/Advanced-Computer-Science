@@ -23,11 +23,11 @@ Product::void set_quantity(int amount)
 
 Product::const double price()
 {
-	return _quantity * _cost * (1+_tax);
+
 }
 
 std::ostream& operator<<(std::ostream& ost, const Product product)
 {
-	ost << std:setprecision(2) << product._name << '(' << if(product._quantity > 0){product._quantity << ' '} << '@' <<  product._cost;
+	ost << std:setprecision(2) << product._name << '(' << if(product._quantity > 0){product._quantity << " @"} << " $" <<  product._cost;
 	return ost;
 }

@@ -26,5 +26,5 @@ Taxed::static void set_tax_rate(double sales_tax)
 
 Taxed::const double price()
 {
-
+	return _quantity * _cost * (1+_tax);
 }

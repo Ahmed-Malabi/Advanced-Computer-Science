@@ -1,6 +1,6 @@
 CXXFLAGS += --std=c++17
 
-all: main debug test
+all: main debug
 
 
 debug: CXXFLAGS += -g
@@ -11,9 +11,6 @@ rebuild: clean main
 
 main: Main.o Product.o Taxed.o Taxfree.o
 	$(CXX) $(CXXFLAGS) -o main Main.o Product.o Taxed.o Taxfree.o
-	
-test: test.o Product.o Taxed.o Taxfree.o
-	$(CXX) $(CXXFLAGS) -o test test.o Product.o Taxed.o Taxfree.o
 	
 Main.o: Main.cpp
 	$(CXX) $(CXXFLAGS) -c Main.cpp

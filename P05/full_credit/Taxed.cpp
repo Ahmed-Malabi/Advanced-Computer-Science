@@ -1,9 +1,9 @@
-#include <strings>
+#include <string>
 #include "Product.h"
 #include "Taxed.h"
 
 
-static double _tax;
+double Taxed::_tax;
 
 
 Taxed::Taxed(std::string name, double cost) : Product(name,cost)
@@ -19,12 +19,12 @@ Taxed::~Taxed()
 
 }
 
-Taxed::static void set_tax_rate(double sales_tax)
+void Taxed::set_tax_rate(double sales_tax)
 {
-	_tax = sales_tax;
+	Taxed::_tax = sales_tax;
 }
 
-Taxed::const double price()
+const double Taxed::price()
 {
 	return _quantity * _cost * (1+_tax);
 }

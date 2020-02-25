@@ -1,10 +1,6 @@
-#include <strings>
+#include <string>
 #include "Product.h"
 #include "Taxfree.h"
-
-
-static double _tax;
-
 
 Taxfree::Taxfree(std::string name, double cost) : Product(name,cost)
 {
@@ -14,12 +10,12 @@ Taxfree::Taxfree(std::string name, double cost) : Product(name,cost)
 	_quantity = 0;
 }
 
-Taxfree::~Taxed()
+Taxfree::~Taxfree()
 {
 
 }
 
-Taxfree::const double price()
+const double Taxfree::price()
 {
 	return _quantity * _cost;
 }

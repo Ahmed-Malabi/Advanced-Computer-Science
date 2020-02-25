@@ -1,7 +1,7 @@
 #ifndef __PRODUCT_H_
 #define __PRODUCT_H_
 
-#include <strings>
+#include <string>
 #include <ostream>
 
 class Product
@@ -15,7 +15,7 @@ class Product
   protected:
 	int _quantity;
 	double _cost;
-	std:string _name;
-}
+	std::string _name;
+};
 
 #endif

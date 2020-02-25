@@ -1,11 +1,11 @@
 #ifndef __TAXED_H_
 #define __TAXED_H_
 
-#include <strings>
+#include <string>
 #include "Product.h"
 
 
-class Taxed : virtual Product
+class Taxed : public Product
 {
   public:
   	Taxed(std::string name, double cost);
@@ -14,6 +14,6 @@ class Taxed : virtual Product
   	const double price() override;
   private:
   	static double _tax;
-}
+};
 
 #endif

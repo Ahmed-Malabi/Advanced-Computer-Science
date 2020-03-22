@@ -15,7 +15,7 @@ std::string Options::to_string() const
 {
 	std::ostringstream temp;
 	temp << std::fixed << std::setprecision(2) << _cost;
-	return _name + ": " + temp.str();
+	return _name + ": $" + temp.str();
 }
 
 std::ostream& operator<<(std::ostream& ost, const Options option)

@@ -1,6 +1,6 @@
 CXXFLAGS += --std=c++17
 
-all: main debug customer options
+all: main debug customer options desktop
 
 
 debug: CXXFLAGS += -g
@@ -17,6 +17,9 @@ customer: CustomerTest.o Customer.o
 	
 options: OptionsTest.o Options.o
 	$(CXX) $(CXXFLAGS) -o options OptionsTest.o Options.o
+	
+desktop: DesktopTest.o Desktop.o Options.o
+	$(CXX) $(CXXFLAGS) -o desktop DesktopTest.o Desktop.o Options.o
 	
 Main.o: Main.cpp
 	$(CXX) $(CXXFLAGS) -c Main.cpp

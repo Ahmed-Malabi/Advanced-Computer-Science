@@ -8,11 +8,11 @@ int main()
 	std::ostringstream test;
 	Options option{"I9-6600K", 599.99};
 
-	std::cout << option << std::endl;
+	test << option;
 	
-	//assert(test.str() == "I9-6600K: 599.99");
+	assert(test.str() == "I9-6600K: 599.99");
 	assert(option.cost() == 599.99);
-	assert(option.Options::to_string() == "I9-6600K");
+	assert(option.Options::to_string() == "I9-6600K: 599.99");
 	
 	return 0;
 }

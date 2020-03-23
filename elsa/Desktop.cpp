@@ -25,5 +25,5 @@ std::ostream& operator<<(std::ostream& ost, const Desktop desktop)
 		ost << *desktop.options.at(i) << " ";
 	}
 	
-	return ost << std::fixed << std::setprecision(2) << "($" << desktop.Desktop::price() << ')' << std::endl;
+	return ost << std::fixed << std::setprecision(2) << "($" << desktop.Desktop::price() << " )";
 }

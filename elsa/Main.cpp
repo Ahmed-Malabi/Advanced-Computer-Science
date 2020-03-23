@@ -1,4 +1,4 @@
-#include "store.h"
+#include "Store.h"
 #include <iostream>
 #include <iomanip>
 

@@ -11,6 +11,11 @@ double Options::cost()
 	return _cost;
 }
 
+std::string Options::name()
+{
+	return _name;
+}
+
 std::string Options::to_string() const
 {
 	std::ostringstream temp;

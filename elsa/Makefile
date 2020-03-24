@@ -46,4 +46,4 @@ Options.o: Options.cpp
 	$(CXX) $(CXXFLAGS) -c Options.cpp
 	
 clean:
-	-rm -f *.o *.gch *~ main
+	-rm -f *.o *.gch *~ main desktop store customer options order

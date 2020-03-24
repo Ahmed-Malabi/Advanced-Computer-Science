@@ -12,26 +12,30 @@ int main()
 	Store store;
 	Customer customer{"Ahmed", "817-773-7543", "ahmed.malabi@mavs.uta.edu"};
 	store.add_customer(customer);
-	std::cout << store.Store::num_customer() << std::endl;
-	std::cout << store.Store::customer(0) << std::endl;
+	std::cout << store.num_customers() << std::endl;
+	std::cout << store.customer(0) << std::endl;
 	
 	Options option1{"This is 1", 100.00};
 	Options option2{"This is 2", 5.45};
 	Options option3{"This is 3", 20.45};
 	
 	store.Store::add_option(option1);
+	std::cout << store.option(0) << std::endl;
 	store.Store::add_option(option2);
+	std::cout << store.option(1) << std::endl;
 	store.Store::add_option(option3);
+	std::cout << store.option(2) << std::endl;
 	
 	std::cout << store.Store::num_options() << std::endl;
 	
-	Options option4{"This is 1", 100.00};
-	Options option5{"This is 2", 5.45};
-	Options option6{"This is 3", 20.45};
+	Options option4{"This is 4", 100.00};
+	Options option5{"This is 5", 5.45};
+	Options option6{"This is 6", 20.45};
 	
 	store.Store::add_option(option4);
 	store.Store::add_option(option5);
 	store.Store::add_option(option6);
+	std::cout << store.option(2) << std::endl;
 	
 	std::cout << store.Store::num_options() << std::endl;
 	std::cout << store.option(0) << std::endl;

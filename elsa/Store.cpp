@@ -17,7 +17,7 @@ Customer& Store::customer(int index)
 
 void Store::add_option(Options& option)
 {
-	options.push_back(&option);
+	options.push_back(new Options{option.name(),option.cost()});
 }
 
 int Store::num_options()
@@ -34,7 +34,7 @@ int Store::new_desktop()
 {
 	Desktop desktop;
 	desktops.push_back(desktop);
-	return desktops.size();
+	return desktops.size()-1;
 }
 
 void Store::add_option(int option, int desktop)

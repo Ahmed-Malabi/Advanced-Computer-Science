@@ -1,4 +1,4 @@
-#include "entrydialog.h"
+#include "Entrydialog.h"
 
 EntryDialog::EntryDialog(Gtk::Window& parent,
                          const Glib::ustring& message, 

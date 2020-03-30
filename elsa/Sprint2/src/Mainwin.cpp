@@ -1,4 +1,5 @@
 #include "Mainwin.h"
+#include "Entrydialog.h"
 #include <iostream> // for std::cerr logging
 
 Mainwin::Mainwin() : store{nullptr} {
@@ -147,7 +148,7 @@ void Mainwin::on_about_click() {
 
 void Mainwin::on_view_peripheral_click()
 {
-	
+
 }
 
 void Mainwin::on_view_desktop_click()
@@ -189,9 +190,9 @@ void Mainwin::on_insert_customer_click()
 	
 }
 
-// /////////////////
-// U T I L I T I E S
-// /////////////////
+///////////////////////
+// U T I L I T I E S //
+///////////////////////
 
 ///////////
 // S E T //
@@ -205,4 +206,35 @@ void Mainwin::set_data(std::string s)
 void Mainwin::set_msg(std::string s)
 {
 	
+}
+
+///////////
+// G E T //
+///////////
+
+std::string Mainwin::get_string(std::string prompt)
+{
+	EntryDialog edialog{*this, prompt, true};
+    edialog.set_text("Enter in alpha caracters (a-z) (A-Z)");
+    edialog.run();
+    
+    return edialog.get_text();
+}
+
+double Mainwin::get_double(std::string prompt)
+{
+	EntryDialog edialog{*this, prompt, true};
+    edialog.set_text("Enter in numeric caracters and a decimal (234.56)");
+    edialog.run();
+    
+    return std::stod(edialog.get_text());
+}
+
+int Mainwin::get_int(std::string prompt)
+{
+	EntryDialog edialog{*this, prompt, true};
+    edialog.set_text("Enter in numeric characters (123)");
+    edialog.run();
+    
+    return std::stoi(edialog.get_text());
 }

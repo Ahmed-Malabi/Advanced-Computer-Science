@@ -179,7 +179,10 @@ void Mainwin::on_view_desktop_click()
 
 void Mainwin::on_view_order_click()
 {
-	
+	std::ostringstream oss;
+	for(int i=0; i<store->num_orders(); ++i) 
+        oss << i << ") " << store->order(i) << "\n";
+    set_data(oss.str());
 }
 
 void Mainwin::on_view_customer_click()
@@ -236,7 +239,24 @@ void Mainwin::on_insert_desktop_click()
 
 void Mainwin::on_insert_order_click()
 {
-	
+	std::ostringstream oss;
+	for(int i=0; i<store->num_customers(); ++i) 
+        oss << i << ") " << store->customer(i) << '\n';
+        set_data(oss.str());
+    int customer = get_int("<b>Which customer</b>");
+
+    int order = store->new_order(customer);
+
+    while(true) {
+        for(int i=0; i<store->num_desktops(); ++i) 
+        	oss << i << ") " << store->desktop(i) << '\n';
+        set_data(oss.str());
+        int desktop = get_int("<b>Which desktop</b>");
+        if(desktop == -1) break;
+        store->add_desktop(desktop, order);
+    }
+    oss << "\n++++ Order Placed ++++\n" << store->order(order);
+    on_view_order_click();
 }
 
 void Mainwin::on_insert_customer_click()

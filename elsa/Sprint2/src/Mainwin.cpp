@@ -1,5 +1,6 @@
 #include "Mainwin.h"
 #include "Entrydialog.h"
+#include <sstream>
 #include <iostream> // for std::cerr logging
 
 Mainwin::Mainwin() : store{new Store{}} {
@@ -109,7 +110,21 @@ Mainwin::Mainwin() : store{new Store{}} {
     Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("_About", true));
     menuitem_about->signal_activate().connect([this] {this->on_about_click();});
     helpmenu->append(*menuitem_about);
+     
+    // /////////////////////////// ////////////////////////////////////////////
+    // S T I C K S   D I S P L A Y
+    // Provide a text entry box to show the remaining sticks
+    data = Gtk::manage(new Gtk::Label());
+    data->set_hexpand(true);
+    data->set_vexpand(true);
+    vbox->add(*data);
     
+    // S T A T U S   B A R   D I S P L A Y ////////////////////////////////////
+    // Provide a status bar for game messages
+    msg = Gtk::manage(new Gtk::Label());
+    msg->set_hexpand(true);
+    vbox->pack_start(*msg, Gtk::PACK_SHRINK, 0);
+    // vbox->add(*msg);
     // Make the box and everything in it visible
     vbox->show_all();
 }
@@ -163,7 +178,10 @@ void Mainwin::on_view_order_click()
 
 void Mainwin::on_view_customer_click()
 {
-	
+	std::ostringstream oss;
+	for(int i=0; i<store->num_customers(); ++i)
+    	oss << i << ") " << store->customer(i) << "\n";
+	set_data(oss.str());
 }
 
 /////////////////

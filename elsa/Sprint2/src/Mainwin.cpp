@@ -33,6 +33,68 @@ Mainwin::Mainwin() : store{nullptr} {
     Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
     menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
     filemenu->append(*menuitem_quit);
+    
+    //     V I E W
+    // Create a View menu and add to the menu bar
+    Gtk::MenuItem *menuitem_view = Gtk::manage(new Gtk::MenuItem("_View", true));
+    menubar->append(*menuitem_view);
+    Gtk::Menu *viewmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_view->set_submenu(*viewmenu);
+    
+    //           P E R I P H E R A L
+    // Append peripheral to the View menu
+    Gtk::MenuItem *menuitem_vperipheral = Gtk::manage(new Gtk::MenuItem("_Peripheral", true));
+    menuitem_vperipheral->signal_activate().connect([this] {this->on_view_peripheral_click();});
+    viewmenu->append(*menuitem_vperipheral);
+    
+    //           D E S K T O P
+    // Append desktop to the View menu
+    Gtk::MenuItem *menuitem_vdesktop = Gtk::manage(new Gtk::MenuItem("_Desktop", true));
+    menuitem_vdesktop->signal_activate().connect([this] {this->on_view_desktop_click();});
+    viewmenu->append(*menuitem_vdesktop);
+    
+    //           O R D E R
+    // Append order to the View menu
+    Gtk::MenuItem *menuitem_vorder = Gtk::manage(new Gtk::MenuItem("_Order", true));
+    menuitem_vorder->signal_activate().connect([this] {this->on_view_order_click();});
+    viewmenu->append(*menuitem_vorder);
+    
+    //           C U S T O M E R
+    // Append customer to the View menu
+    Gtk::MenuItem *menuitem_vcustomer = Gtk::manage(new Gtk::MenuItem("_Customer", true));
+    menuitem_vcustomer->signal_activate().connect([this] {this->on_view_customer_click();});
+    viewmenu->append(*menuitem_vcustomer);
+    
+    //     I N S E R T
+    // Create a Insert menu and add to the menu bar
+    Gtk::MenuItem *menuitem_insert = Gtk::manage(new Gtk::MenuItem("_File", true));
+    menubar->append(*menuitem_insert);
+    Gtk::Menu *insertmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_insert->set_submenu(*insertmenu);
+    
+     //           P E R I P H E R A L
+    // Append peripheral to the Insert menu
+    Gtk::MenuItem *menuitem_iperipheral = Gtk::manage(new Gtk::MenuItem("_Peripheral", true));
+    menuitem_iperipheral->signal_activate().connect([this] {this->on_insert_peripheral_click();});
+    insertmenu->append(*menuitem_iperipheral);
+    
+    //           D E S K T O P
+    // Append desktop to the Insert menu
+    Gtk::MenuItem *menuitem_idesktop = Gtk::manage(new Gtk::MenuItem("_Desktop", true));
+    menuitem_idesktop->signal_activate().connect([this] {this->on_insert_desktop_click();});
+    insertmenu->append(*menuitem_idesktop);
+    
+    //           O R D E R
+    // Append order to the Insert menu
+    Gtk::MenuItem *menuitem_iorder = Gtk::manage(new Gtk::MenuItem("_Order", true));
+    menuitem_iorder->signal_activate().connect([this] {this->on_insert_order_click();});
+    insertmenu->append(*menuitem_iorder);
+    
+    //           C U S T O M E R
+    // Append customer to the Insert menu
+    Gtk::MenuItem *menuitem_icustomer = Gtk::manage(new Gtk::MenuItem("_Customer", true));
+    menuitem_icustomer->signal_activate().connect([this] {this->on_insert_customer_click();});
+    insertmenu->append(*menuitem_icustomer);
 
     //     H E L P
     // Create a Help menu and add to the menu bar
@@ -47,13 +109,6 @@ Mainwin::Mainwin() : store{nullptr} {
     menuitem_about->signal_activate().connect([this] {this->on_about_click();});
     helpmenu->append(*menuitem_about);
     
-    // S T A T U S   B A R   D I S P L A Y ////////////////////////////////////
-    // Provide a status bar for game messages
-    //msg = Gtk::manage(new Gtk::Label());
-    //msg->set_hexpand(true);
-    //vbox->pack_start(*msg, Gtk::PACK_SHRINK, 0);
-    // vbox->add(*msg);
-
     // Make the box and everything in it visible
     vbox->show_all();
 }
@@ -92,22 +147,22 @@ void Mainwin::on_about_click() {
 
 void Mainwin::on_view_peripheral_click()
 {
-
+	
 }
 
 void Mainwin::on_view_desktop_click()
 {
-
+	
 }
 
 void Mainwin::on_view_order_click()
 {
-
+	
 }
 
 void Mainwin::on_view_customer_click()
 {
-
+	
 }
 
 /////////////////
@@ -116,22 +171,22 @@ void Mainwin::on_view_customer_click()
 
 void Mainwin::on_insert_peripheral_click()
 {
-
+	
 }
 
 void Mainwin::on_insert_desktop_click()
 {
-
+	
 }
 
 void Mainwin::on_insert_order_click()
 {
-
+	
 }
 
 void Mainwin::on_insert_customer_click()
 {
-
+	
 }
 
 // /////////////////
@@ -144,10 +199,10 @@ void Mainwin::on_insert_customer_click()
 
 void Mainwin::set_data(std::string s)
 {
-
+	
 }
 
 void Mainwin::set_msg(std::string s)
 {
-
+	
 }

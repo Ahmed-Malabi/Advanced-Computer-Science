@@ -33,5 +33,7 @@ class Mainwin : public Gtk::Window {
 
         Gtk::Label* data;
         Gtk::Label* label;
+};
+
 #endif 
 

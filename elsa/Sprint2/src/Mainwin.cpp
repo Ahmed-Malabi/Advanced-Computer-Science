@@ -56,9 +56,6 @@ Mainwin::Mainwin() : store{nullptr} {
 
     // Make the box and everything in it visible
     vbox->show_all();
-
-    // Start a new game
-    on_new_game_click();
 }
 
 Mainwin::~Mainwin() { }
@@ -67,14 +64,14 @@ Mainwin::~Mainwin() { }
 // C A L L B A C K S
 // /////////////////
 
-Mainwin::void Mainwin::on_quit_click() {
+void Mainwin::on_quit_click() {
     close();
 }
 
-Mainwin::void Mainwin::on_about_click() {
+void Mainwin::on_about_click() {
     Gtk::AboutDialog dialog;
     dialog.set_transient_for(*this); // Avoid the discouraging warning
-    dialog.set_program_name("ELSA");
+    dialog.set_program_name("E.L.S.A.");
     //auto logo = Gdk::Pixbuf::create_from_file("128px-Pyramidal_matches.png");
     //dialog.set_logo(logo);
     dialog.set_version("Version 0.1");
@@ -93,22 +90,22 @@ Mainwin::void Mainwin::on_about_click() {
 // V I E W //
 /////////////
 
-Mainwin::void on_view_peripheral_click()
+void Mainwin::on_view_peripheral_click()
 {
 
 }
 
-Mainwin::void on_view_desktop_click()
+void Mainwin::on_view_desktop_click()
 {
 
 }
 
-Mainwin::void on_view_order_click()
+void Mainwin::on_view_order_click()
 {
 
 }
 
-Mainwin::void on_view_customer_click()
+void Mainwin::on_view_customer_click()
 {
 
 }
@@ -117,22 +114,22 @@ Mainwin::void on_view_customer_click()
 // I N S E R T //
 /////////////////
 
-Mainwin::void on_insert_peripheral_click()
+void Mainwin::on_insert_peripheral_click()
 {
 
 }
 
-Mainwin::void on_insert_desktop_click()
+void Mainwin::on_insert_desktop_click()
 {
 
 }
 
-Mainwin::void on_insert_order_click()
+void Mainwin::on_insert_order_click()
 {
 
 }
 
-Mainwin::void on_insert_customer_click()
+void Mainwin::on_insert_customer_click()
 {
 
 }
@@ -145,12 +142,12 @@ Mainwin::void on_insert_customer_click()
 // S E T //
 ///////////
 
-Mainwin::void set_data(std::string s)
+void Mainwin::set_data(std::string s)
 {
 
 }
 
-Mainwin::void set_msg(std::string s)
+void Mainwin::set_msg(std::string s)
 {
 
 }

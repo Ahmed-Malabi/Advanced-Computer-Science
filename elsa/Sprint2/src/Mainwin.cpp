@@ -163,7 +163,10 @@ void Mainwin::on_about_click() {
 
 void Mainwin::on_view_peripheral_click()
 {
-
+	std::ostringstream oss;
+	for(int i=0; i<store->num_options(); ++i) 
+		oss << i << ") " << store->option(i) << "\n";
+	set_data(oss.str());
 }
 
 void Mainwin::on_view_desktop_click()
@@ -190,7 +193,21 @@ void Mainwin::on_view_customer_click()
 
 void Mainwin::on_insert_peripheral_click()
 {
-	
+	std::string s;
+    s = get_string("<b>Enter The Products Name</b>");
+    double cost = get_double("<b>Enter The Products Cost</b>");
+    if(s.size() && cost)
+    {
+    	Options option{s, cost};
+    	store->add_option(option);
+    	on_view_peripheral_click();
+    }
+    else
+    {
+    	
+    }
+
+    
 }
 
 void Mainwin::on_insert_desktop_click()
@@ -206,20 +223,11 @@ void Mainwin::on_insert_order_click()
 void Mainwin::on_insert_customer_click()
 {
 	std::string name, phone, email;
-    EntryDialog namedial{*this, "<b>Enter The Customers Name</b>", true};
-    namedial.set_text("Enter in alpha caracters (a-z) (A-Z)");
-    namedial.run();
-    name = namedial.get_text();
+    name = get_string("<b>Enter The Customers Name</b>");
     if(name.size())
     {
-    	EntryDialog phonedial{*this, "<b>Enter Your Phonenumber</b>", true};
-    	phonedial.set_text("Enter in numeric caracters and dashes (817-xxx-xxx)");
-    	phonedial.run();
-    	phone = phonedial.get_text();
-    	EntryDialog emaildial{*this, "<b>Enter Your Email</b>", true};
-    	emaildial.set_text("Enter in alpha caracters (a-z) (A-Z)");
-    	emaildial.run();
-    	email = emaildial.get_text();
+    	phone = get_string("<b>Enter Your Phonenumber</b>");
+    	email = get_string("<b>Enter Your email</b>");
     	Customer customer{name, phone, email};
     	store->add_customer(customer);
     	on_view_customer_click();

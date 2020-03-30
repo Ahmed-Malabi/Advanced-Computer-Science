@@ -171,7 +171,10 @@ void Mainwin::on_view_peripheral_click()
 
 void Mainwin::on_view_desktop_click()
 {
-	
+	std::ostringstream oss;
+	for(int i=0; i<store->num_desktops(); ++i) 
+        oss << i << ") " << store->desktop(i) << "\n";
+    set_data(oss.str());
 }
 
 void Mainwin::on_view_order_click()
@@ -212,7 +215,23 @@ void Mainwin::on_insert_peripheral_click()
 
 void Mainwin::on_insert_desktop_click()
 {
-	
+	int desktop = store->new_desktop();
+	std::ostringstream oss;
+        while(true) {
+        	oss.str("");
+            oss << store->desktop(desktop) << "\n\n";
+            for(int i=0; i<store->num_options(); ++i) 
+            	oss << i << ") " << store->option(i) << '\n';
+        	set_data(oss.str());
+            int option = get_int("<b>Add which peripheral (cancel when done)</b>");
+            if(option == -1) break;
+            try {
+                store->add_option(option, desktop);
+            } catch(std::exception& e) {
+                std::cerr << "#### INVALID OPTION ####\n\n";
+            }
+        }
+        on_view_desktop_click();
 }
 
 void Mainwin::on_insert_order_click()
@@ -277,7 +296,7 @@ double Mainwin::get_double(std::string prompt)
     {
     	temp = std::stod(edialog.get_text());
     }
-    catch (double n)
+    catch (std::exception& e)
     {
     	temp = -1.0;
     }
@@ -296,7 +315,7 @@ int Mainwin::get_int(std::string prompt)
     {
     	temp = std::stod(edialog.get_text());
     }
-    catch (int n)
+    catch (std::exception& e)
     {
     	temp = -1;
     }

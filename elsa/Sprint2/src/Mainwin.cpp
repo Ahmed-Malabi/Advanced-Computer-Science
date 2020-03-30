@@ -2,7 +2,7 @@
 #include "Entrydialog.h"
 #include <iostream> // for std::cerr logging
 
-Mainwin::Mainwin() : store{nullptr} {
+Mainwin::Mainwin() : store{new Store{}} {
 
     // /////////////////
     // G U I   S E T U P
@@ -68,7 +68,7 @@ Mainwin::Mainwin() : store{nullptr} {
     
     //     I N S E R T
     // Create a Insert menu and add to the menu bar
-    Gtk::MenuItem *menuitem_insert = Gtk::manage(new Gtk::MenuItem("_File", true));
+    Gtk::MenuItem *menuitem_insert = Gtk::manage(new Gtk::MenuItem("_Insert", true));
     menubar->append(*menuitem_insert);
     Gtk::Menu *insertmenu = Gtk::manage(new Gtk::Menu());
     menuitem_insert->set_submenu(*insertmenu);
@@ -187,7 +187,25 @@ void Mainwin::on_insert_order_click()
 
 void Mainwin::on_insert_customer_click()
 {
-	
+	std::string name, phone, email;
+    EntryDialog namedial{*this, "<b>Enter The Customers Name</b>", true};
+    namedial.set_text("Enter in alpha caracters (a-z) (A-Z)");
+    namedial.run();
+    name = namedial.get_text();
+    if(name.size())
+    {
+    	EntryDialog phonedial{*this, "<b>Enter Your Phonenumber</b>", true};
+    	phonedial.set_text("Enter in numeric caracters and dashes (817-xxx-xxx)");
+    	phonedial.run();
+    	phone = phonedial.get_text();
+    	EntryDialog emaildial{*this, "<b>Enter Your Email</b>", true};
+    	emaildial.set_text("Enter in alpha caracters (a-z) (A-Z)");
+    	emaildial.run();
+    	email = emaildial.get_text();
+    	Customer customer{name, phone, email};
+    	store->add_customer(customer);
+    	on_view_customer_click();
+    }
 }
 
 ///////////////////////
@@ -200,12 +218,12 @@ void Mainwin::on_insert_customer_click()
 
 void Mainwin::set_data(std::string s)
 {
-	
+	data->set_markup(s);
 }
 
 void Mainwin::set_msg(std::string s)
 {
-	
+	msg->set_markup(s);
 }
 
 ///////////
@@ -227,7 +245,17 @@ double Mainwin::get_double(std::string prompt)
     edialog.set_text("Enter in numeric caracters and a decimal (234.56)");
     edialog.run();
     
-    return std::stod(edialog.get_text());
+    double temp;
+    
+    try
+    {
+    	temp = std::stod(edialog.get_text());
+    }
+    catch (double n)
+    {
+    	temp = -1.0;
+    }
+    return temp;
 }
 
 int Mainwin::get_int(std::string prompt)
@@ -236,5 +264,15 @@ int Mainwin::get_int(std::string prompt)
     edialog.set_text("Enter in numeric characters (123)");
     edialog.run();
     
-    return std::stoi(edialog.get_text());
+    int temp;
+    
+    try
+    {
+    	temp = std::stod(edialog.get_text());
+    }
+    catch (int n)
+    {
+    	temp = -1;
+    }
+    return temp;
 }

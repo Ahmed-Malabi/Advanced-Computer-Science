@@ -32,7 +32,7 @@ class Mainwin : public Gtk::Window {
         Store* store;
 
         Gtk::Label* data;
-        Gtk::Label* label;
+        Gtk::Label* msg;
 };
 
 #endif 

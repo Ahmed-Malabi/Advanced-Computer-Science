@@ -2,32 +2,36 @@
 #define __MAINWIN_H
 
 #include <gtkmm.h>
-#include "nim.h"
+#include "store.h"
 
 class Mainwin : public Gtk::Window {
     public:
         Mainwin();
         virtual ~Mainwin();
     protected:
-        void on_new_game_click();          // Create a new game
-        //void on_button1_click();         // Select one stick from pile
-        //void on_button2_click();         // Select two sticks from pile
-        //void on_button3_click();         // Select three sticks from pile
-        void on_button_click(int button);  // NEW - Select 1, 2, or 3 sticksf from pile
-        void on_computer_player_click();   // Enable / disable computer player
-        void on_rules_click();             // Show the rules
+		void on_view_peripheral_click();
+		void on_view_desktop_click();
+		void on_view_order_click();
+		void on_view_customer_click();
+		
+		void on_insert_peripheral_click();
+		void on_insert_desktop_click();
+		void on_insert_order_click();
+		void on_insert_customer_click();
+		
+		std::string get_string(std::string prompt);
+		double get_double(std::string prompt);
+		int get_int(std::string prompt);
+		
+		void set_data(std::string s);
+		void set_msg(std::string s);
+		
         void on_about_click();             // Display About dialog
-        void on_quit_click();              // Exit the game
+        void on_quit_click();              // Exit the program
     private:
-        void set_sticks();                       // Update display, robot move
-        Nim *nim;                                // Current game board
+        Store* store;
 
-        Gtk::Label *sticks;                      // Display of sticks on game board
-        Gtk::Label *msg;                         // Status message display
-        Gtk::ToolButton *button1;                // Button to select 1 stick
-        Gtk::ToolButton *button2;                // Button to select 2 sticks
-        Gtk::ToolButton *button3;                // Button to select 3 sticks
-        Gtk::ToggleToolButton *computer_player;  // Button to enable robot
-};
+        Gtk::Label* data;
+        Gtk::Label* label;
 #endif 
 

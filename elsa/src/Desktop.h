@@ -7,6 +7,8 @@
 class Desktop
 {
   public:
+  	Desktop();
+  	Desktop(std::istream& ist);
   	void add_option(Options& option);
   	double price() const;
   	void save(std::ostream& ost);

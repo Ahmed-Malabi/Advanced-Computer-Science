@@ -7,6 +7,7 @@ class Options
 {
   public:
   	Options(std::string name, double cost);
+  	Options(std::istream& ist);
   	~Options();
   	double cost();
   	std::string to_string() const;

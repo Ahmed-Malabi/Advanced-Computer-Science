@@ -1,5 +1,12 @@
 #include "Store.h"
 
+Store::Store() {}
+
+Store::Store(std::istream& ist)
+{
+
+}
+
 void Store::add_customer(Customer& customer)
 {
 	customers.push_back(customer);

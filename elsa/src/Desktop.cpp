@@ -1,6 +1,13 @@
 #include "Desktop.h"
 #include "iomanip"
 
+Desktop::Desktop() {}
+
+Desktop::Desktop(std::istream& ist)
+{
+
+}
+
 void Desktop::add_option(Options& option)
 {
 	options.push_back(&option);

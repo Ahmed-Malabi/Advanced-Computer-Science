@@ -8,6 +8,7 @@ class Order
 {
   public:
   	Order(Customer& customer);
+  	//Order(std::istream& ist);
   	~Order();
   	int add_product(Desktop& desktop);
   	double price() const;

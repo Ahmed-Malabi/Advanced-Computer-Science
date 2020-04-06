@@ -3,6 +3,13 @@
 
 Order::Order(Customer& customer) : _customer{customer} {}
 
+/*
+Order::Order(std::istream& ist)
+{
+
+}
+*/
+
 Order::~Order() {}
 
 int Order::add_product(Desktop& desktop)

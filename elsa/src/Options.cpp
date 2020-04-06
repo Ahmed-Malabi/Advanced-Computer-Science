@@ -4,6 +4,11 @@
 
 Options::Options(std::string name, double cost) : _name{name}, _cost{cost} {}
 
+Options::Options(std::istream& ist)
+{
+	
+}
+
 Options::~Options() {}
 
 double Options::cost()

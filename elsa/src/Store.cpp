@@ -42,6 +42,11 @@ void Store::add_option(int option, int desktop)
 	desktops.at(desktop).Desktop::add_option(*options.at(option));
 }
 
+void Store::save(std::ostream& ost)
+{
+
+}
+
 int Store::num_desktops()
 {
 	return desktops.size();

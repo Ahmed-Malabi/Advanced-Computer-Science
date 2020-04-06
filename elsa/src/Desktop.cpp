@@ -27,3 +27,8 @@ std::ostream& operator<<(std::ostream& ost, const Desktop desktop)
 	
 	return ost << std::fixed << std::setprecision(2) << "($" << desktop.Desktop::price() << " )";
 }
+
+void Desktop::save(std::ostream& ost)
+{
+
+}

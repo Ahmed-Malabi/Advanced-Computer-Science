@@ -22,3 +22,8 @@ std::ostream& operator<<(std::ostream& ost, const Options option)
 {
 	return ost << option.Options::to_string();
 }
+
+void Options::save(std::ostream& ost)
+{
+
+}

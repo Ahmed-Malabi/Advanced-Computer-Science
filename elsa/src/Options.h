@@ -10,6 +10,7 @@ class Options
   	~Options();
   	double cost();
   	std::string to_string() const;
+  	void save(std::ostream& ost);
   	friend std::ostream& operator<<(std::ostream& ost, const Options option);
   protected:
   	std::string _name;

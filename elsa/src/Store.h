@@ -20,6 +20,7 @@ class Store
   	void add_desktop(int desktop, int order);
   	int num_orders();
   	Order& order(int index);
+  	void save(std::ostream& ost);
   private:
   	std::vector<Customer> customers;
   	std::vector<Options*> options;

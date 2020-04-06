@@ -36,3 +36,8 @@ std::ostream& operator<<(std::ostream& ost, const Order order)
 	
 	ost << std::fixed << std::setprecision(2) << "total: " << order.Order::price() <<std::endl;
 }
+
+void Order::save(std::ostream& ost)
+{
+
+}

@@ -23,6 +23,10 @@ class Mainwin : public Gtk::Window {
 		double get_double(std::string prompt);
 		int get_int(std::string prompt);
 		
+		void on_save_click();
+		void on_save_as_click();
+		void on_open_click();
+		
 		void set_data(std::string s);
 		void set_msg(std::string s);
 		
@@ -33,6 +37,8 @@ class Mainwin : public Gtk::Window {
 
         Gtk::Label* data;
         Gtk::Label* msg;
+        
+        std::string filename;
 };
 
 #endif 

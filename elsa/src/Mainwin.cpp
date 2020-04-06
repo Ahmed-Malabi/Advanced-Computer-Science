@@ -8,6 +8,8 @@ Mainwin::Mainwin() : store{new Store{}} {
     // /////////////////
     // G U I   S E T U P
     // /////////////////
+    
+    filename = "untitled.elsa";
 
     set_default_size(400, 200);
     set_title("E.L.S.A.");
@@ -35,6 +37,24 @@ Mainwin::Mainwin() : store{new Store{}} {
     Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
     menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
     filemenu->append(*menuitem_quit);
+    
+    //         S A V E 
+    // Append Quit to the File menu
+    Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
+    menuitem_save->signal_activate().connect([this] {this->on_save_click();});
+    filemenu->append(*menuitem_save);
+    
+    //         S A V E A S
+    // Append Quit to the File menu
+    Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("Save _As", true));
+    menuitem_saveas->signal_activate().connect([this] {this->on_save_as_click();});
+    filemenu->append(*menuitem_saveas);
+    
+    //         O P E N
+    // Append Quit to the File menu
+    Gtk::MenuItem *menuitem_open = Gtk::manage(new Gtk::MenuItem("_Open", true));
+    menuitem_open->signal_activate().connect([this] {this->on_open_click();});
+    filemenu->append(*menuitem_open);
     
     //     V I E W
     // Create a View menu and add to the menu bar
@@ -281,6 +301,21 @@ void Mainwin::on_insert_customer_click()
     	store->add_customer(customer);
     	on_view_customer_click();
     }
+}
+
+void Mainwin::on_save_click()
+{
+
+}
+
+void Mainwin::on_save_as_click()
+{
+
+}
+
+void Mainwin::on_open_click()
+{
+
 }
 
 ///////////////////////

@@ -9,7 +9,9 @@ std::ostream& operator<<(std::ostream& ost, const Customer customer)
 
 Customer::Customer(std::istream& ist)
 {
-	ist >> _name >> _phone >> _email;
+	getline(ist, _name);
+	getline(ist, _phone);
+	getline(ist, _email);
 }
 
 void Customer::save(std::ostream& ost)

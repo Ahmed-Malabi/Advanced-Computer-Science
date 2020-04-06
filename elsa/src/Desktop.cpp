@@ -5,7 +5,13 @@ Desktop::Desktop() {}
 
 Desktop::Desktop(std::istream& ist)
 {
-
+	int size;
+	ist >> size;
+	ist.ignore(32767,'\n');
+	for(int i = 0; i < size; i++)
+	{
+		options.push_back(new Options{ist});
+	}
 }
 
 void Desktop::add_option(Options& option)
@@ -37,5 +43,9 @@ std::ostream& operator<<(std::ostream& ost, const Desktop desktop)
 
 void Desktop::save(std::ostream& ost)
 {
-
+	ost << options.size() << std::endl;
+	for(int i = 0; i < options.size(); i++)
+	{
+		options.at(i)->save(ost);
+	}
 }

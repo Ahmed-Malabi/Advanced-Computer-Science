@@ -1,14 +1,19 @@
 #include "Order.h"
 #include <iomanip>
 
-Order::Order(Customer& customer) : _customer{customer} {}
+Order::Order(Customer& customer) : _customer{&customer} {}
 
-/*
 Order::Order(std::istream& ist)
 {
-
+	_customer = new Customer(ist);
+	int size;
+	ist >> size;
+	ist.ignore(32767,'\n');
+	for(int i = 0; i < size; i++)
+	{
+		_products.push_back(new Desktop{ist});
+	}
 }
-*/
 
 Order::~Order() {}
 
@@ -34,17 +39,22 @@ double Order::price() const
 std::ostream& operator<<(std::ostream& ost, const Order order)
 {
 
-	ost << order._customer <<" is buying ";
+	ost << *(order._customer) <<" is buying:\n";
 	
 	for(int i = 0; i< order._products.size(); i++)
 	{
-		ost << *order._products.at(i) << " ";
+		ost << *order._products.at(i) << "\n";
 	}
 	
-	ost << std::fixed << std::setprecision(2) << "total: " << order.Order::price() <<std::endl;
+	ost << std::fixed << std::setprecision(2) << "\ntotal: " << order.Order::price() <<std::endl;
 }
 
 void Order::save(std::ostream& ost)
 {
-
+	_customer->save(ost);
+	
+	for(int i = 0; i < _products.size(); i++)
+	{
+		_products.at(i)->save(ost);
+	}
 }

@@ -150,9 +150,9 @@ Mainwin::Mainwin() : store{new Store{}} {
     
     std::ostringstream oss;
     oss << R"(		
-				         	===============
-				         	Welcome to ELSA
-				         	===============
+			         	===============
+			         	Welcome to ELSA
+			         	===============
 
    Exceptional Laptops and Supercomputers Always!)";
    set_data(oss.str());
@@ -257,7 +257,7 @@ void Mainwin::on_insert_desktop_click()
             	oss << i << ") " << store->option(i) << '\n';
         	set_data(oss.str());
             int option = get_int("<b>Add which peripheral (cancel when done)</b>");
-            if(option == -1) break;
+            if(option == -1 || option > store->num_options()) break;
             try {
                 store->add_option(option, desktop);
             } catch(std::exception& e) {
@@ -283,7 +283,7 @@ void Mainwin::on_insert_order_click()
         	oss << i << ") " << store->desktop(i) << '\n';
         set_data(oss.str());
         int desktop = get_int("<b>Which desktop</b>");
-        if(desktop == -1) break;
+        if(desktop == -1 || desktop > store->num_desktops()) break;
         store->add_desktop(desktop, order);
     }
     oss << "\n++++ Order Placed ++++\n" << store->order(order);
@@ -317,7 +317,7 @@ void Mainwin::on_save_click()
 
 void Mainwin::on_save_as_click()
 {
-	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
     dialog.set_transient_for(*this);
 
     auto filter_elsa = Gtk::FileFilter::create();

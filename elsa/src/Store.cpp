@@ -5,14 +5,56 @@ Store::Store() {}
 Store::Store(std::istream& ist)
 {
 	int size;
-	ist >> size;
-	ist.ignore(32767,'\n');
-	for(int i = 0; i < size; i++)
+	if(ist >> size)
 	{
-		Customer customer{ist};
-		customers.push_back(customer);
+		ist.ignore(32767,'\n');
+		for(int i = 0; i < size; i++)
+		{
+			customers.push_back(Customer{ist});
+			if(ist.eof())
+				return;
+		}
+		size = 0;
 	}
-	if(!ist.good() && !ist.eof()) throw std::runtime_error{"Error reading file"};
+	if(ist >> size)
+	{
+		ist.ignore(32767,'\n');
+		for(int i = 0; i < size; i++)
+		{
+			options.push_back(new Options{ist});
+			if(ist.eof())
+				return;
+		}
+		size = 0;
+	}
+	
+	if(ist >> size)
+	{
+		ist.ignore(32767,'\n');
+		for(int i = 0; i < size; i++)
+		{
+			Desktop desktop{ist};
+			desktops.push_back(desktop);
+			if(ist.eof())
+				return;
+		}
+		size = 0;
+	}
+	
+	if(ist >> size)
+	{
+		ist.ignore(32767,'\n');
+		for(int i = 0; i < size; i++)
+		{
+			Order order{ist};
+			orders.push_back(order);
+			if(ist.eof())
+				return;
+		}
+		size = 0;
+	}
+	
+	if(ist.fail() || ist.bad()) throw std::runtime_error{"Error reading file"};
 }
 
 void Store::add_customer(Customer& customer)
@@ -59,9 +101,19 @@ void Store::add_option(int option, int desktop)
 
 void Store::save(std::ostream& ost)
 {
-	ost << customers.size() <<std::endl;
+	ost << customers.size() << std::endl;
 	for(int i = 0; i < customers.size(); i++){customers.at(i).save(ost);}
-	if(!ost.good() && !ost.eof()) throw std::runtime_error{"Error writing file"};
+	
+	ost << options.size() << std::endl;
+	for(int i = 0; i < options.size(); i++){options.at(i)->save(ost);}
+	
+	ost << desktops.size() << std::endl;
+	for(int i = 0; i < desktops.size(); i++){desktops.at(i).save(ost);}
+	
+	ost << orders.size() << std::endl;
+	for(int i = 0; i < orders.size(); i++){orders.at(i).save(ost);}
+	
+	if(ost.fail() || ost.bad()) throw std::runtime_error{"Error writing file"};
 }
 
 int Store::num_desktops()

@@ -6,7 +6,10 @@ Options::Options(std::string name, double cost) : _name{name}, _cost{cost} {}
 
 Options::Options(std::istream& ist)
 {
-	
+	getline(ist, _name);
+	std::string cost;
+	getline(ist, cost);
+	_cost = std::stod(cost);
 }
 
 Options::~Options() {}
@@ -30,5 +33,6 @@ std::ostream& operator<<(std::ostream& ost, const Options option)
 
 void Options::save(std::ostream& ost)
 {
-
+	ost << _name << std::endl;
+	ost << _cost << std::endl;
 }

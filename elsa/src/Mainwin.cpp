@@ -305,17 +305,111 @@ void Mainwin::on_insert_customer_click()
 
 void Mainwin::on_save_click()
 {
+	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
+    dialog.set_transient_for(*this);
 
+    auto filter_nim = Gtk::FileFilter::create();
+    filter_nim->set_name("NIM files");
+    filter_nim->add_pattern("*.nim");
+    dialog.add_filter(filter_nim);
+ 
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+    dialog.set_filename("untitled.nim");
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Save", 1);
+
+    int result = dialog.run();
+
+    if (result == 1) {
+        try {
+            std::ofstream ofs{dialog.get_filename()};
+            nim->save(ofs);
+            ofs << computer_player->get_active() << std::endl;
+            if(!ofs) throw std::runtime_error{"Error writing file"};
+        } catch(std::exception& e) {
+            Gtk::MessageDialog{*this, "Unable to save game: "}.run();
+        }
+    }
 }
 
 void Mainwin::on_save_as_click()
 {
+	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+    dialog.set_transient_for(*this);
 
+    auto filter_nim = Gtk::FileFilter::create();
+    filter_nim->set_name("NIM files");
+    filter_nim->add_pattern("*.nim");
+    dialog.add_filter(filter_nim);
+ 
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+    dialog.set_filename("untitled.nim");
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Open", 1);
+
+    int result = dialog.run();
+
+    if (result == 1) {
+        try {
+            delete nim;
+            std::ifstream ifs{dialog.get_filename()};
+            nim = new Nim{ifs};
+            bool b;
+            ifs >> b;
+            computer_player->set_active(b);
+            if(!ifs) throw std::runtime_error{"File contents bad"};
+            set_sticks();
+        } catch (std::exception& e) {
+            Gtk::MessageDialog{*this, "Unable to open game"}.run();
+        }
+    } 
 }
 
 void Mainwin::on_open_click()
 {
+	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
+    dialog.set_transient_for(*this);
 
+    auto filter_nim = Gtk::FileFilter::create();
+    filter_nim->set_name("NIM files");
+    filter_nim->add_pattern("*.nim");
+    dialog.add_filter(filter_nim);
+ 
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+    dialog.set_filename("untitled.nim");
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Save", 1);
+
+    int result = dialog.run();
+
+    if (result == 1) {
+        try {
+            std::ofstream ofs{dialog.get_filename()};
+            nim->save(ofs);
+            ofs << computer_player->get_active() << std::endl;
+            if(!ofs) throw std::runtime_error{"Error writing file"};
+        } catch(std::exception& e) {
+            Gtk::MessageDialog{*this, "Unable to save game: "}.run();
+        }
+    }
 }
 
 ///////////////////////

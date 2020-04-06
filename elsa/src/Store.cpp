@@ -12,6 +12,7 @@ Store::Store(std::istream& ist)
 		Customer customer{ist};
 		customers.push_back(customer);
 	}
+	if(!ist.good() && !ist.eof()) throw std::runtime_error{"Error reading file"};
 }
 
 void Store::add_customer(Customer& customer)
@@ -60,6 +61,7 @@ void Store::save(std::ostream& ost)
 {
 	ost << customers.size() <<std::endl;
 	for(int i = 0; i < customers.size(); i++){customers.at(i).save(ost);}
+	if(!ost.good() && !ost.eof()) throw std::runtime_error{"Error writing file"};
 }
 
 int Store::num_desktops()

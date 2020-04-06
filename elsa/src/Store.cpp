@@ -4,7 +4,14 @@ Store::Store() {}
 
 Store::Store(std::istream& ist)
 {
-
+	int size;
+	ist >> size;
+	ist.ignore(32767,'\n');
+	for(int i = 0; i < size; i++)
+	{
+		Customer customer{ist};
+		customers.push_back(customer);
+	}
 }
 
 void Store::add_customer(Customer& customer)
@@ -51,7 +58,8 @@ void Store::add_option(int option, int desktop)
 
 void Store::save(std::ostream& ost)
 {
-
+	ost << customers.size() <<std::endl;
+	for(int i = 0; i < customers.size(); i++){customers.at(i).save(ost);}
 }
 
 int Store::num_desktops()

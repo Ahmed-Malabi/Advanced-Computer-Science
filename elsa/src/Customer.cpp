@@ -9,12 +9,14 @@ std::ostream& operator<<(std::ostream& ost, const Customer customer)
 
 Customer::Customer(std::istream& ist)
 {
-
+	ist >> _name >> _phone >> _email;
 }
 
 void Customer::save(std::ostream& ost)
 {
-
+	ost << _name << std::endl;
+	ost << _phone << std::endl;
+	ost << _email << std::endl;
 }
 
 

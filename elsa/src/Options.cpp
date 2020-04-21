@@ -12,6 +12,7 @@ Options::Options(std::istream& ist)
 	_cost = std::stod(cost);
 }
 
+
 Options::~Options() {}
 
 double Options::cost()
@@ -26,13 +27,14 @@ std::string Options::to_string() const
 	return _name + ": $" + temp.str();
 }
 
-std::ostream& operator<<(std::ostream& ost, const Options option)
+std::ostream& operator<<(std::ostream& ost, const Options& option)
 {
-	return ost << option.Options::to_string();
+	return ost << option.to_string();
 }
 
 void Options::save(std::ostream& ost)
 {
+	ost << "generic" << std::endl;
 	ost << _name << std::endl;
 	ost << _cost << std::endl;
 }

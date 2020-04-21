@@ -2,6 +2,7 @@
 #define __DESKTOP_H_
 
 #include "Options.h"
+#include "Ram.h"
 #include <vector>
 
 class Desktop

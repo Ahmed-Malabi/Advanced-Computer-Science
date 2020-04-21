@@ -95,11 +95,25 @@ Mainwin::Mainwin() : store{new Store{}} {
     Gtk::Menu *insertmenu = Gtk::manage(new Gtk::Menu());
     menuitem_insert->set_submenu(*insertmenu);
     
-     //           P E R I P H E R A L
+    //           P E R I P H E R A L
     // Append peripheral to the Insert menu
-    Gtk::MenuItem *menuitem_iperipheral = Gtk::manage(new Gtk::MenuItem("_Peripheral", true));
-    menuitem_iperipheral->signal_activate().connect([this] {this->on_insert_peripheral_click();});
-    insertmenu->append(*menuitem_iperipheral);
+    Gtk::MenuItem *menuitem_peripheral = Gtk::manage(new Gtk::MenuItem("_Peripheral", true));
+    insertmenu->append(*menuitem_peripheral);
+    Gtk::Menu *peripheralmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_peripheral->set_submenu(*peripheralmenu);
+    
+    //           G E N E R I C
+    // Append peripheral to the Insert menu
+    Gtk::MenuItem *menuitem_generic = Gtk::manage(new Gtk::MenuItem("_Generic", true));
+    menuitem_generic->signal_activate().connect([this] {this->on_insert_generic_click();});
+    peripheralmenu->append(*menuitem_generic);
+    
+    //           R A M
+    // Append peripheral to the Insert menu
+    Gtk::MenuItem *menuitem_ram = Gtk::manage(new Gtk::MenuItem("_Ram", true));
+    menuitem_ram->signal_activate().connect([this] {this->on_insert_ram_click();});
+    peripheralmenu->append(*menuitem_ram);
+    
     
     //           D E S K T O P
     // Append desktop to the Insert menu
@@ -227,23 +241,112 @@ void Mainwin::on_view_customer_click()
 // I N S E R T //
 /////////////////
 
-void Mainwin::on_insert_peripheral_click()
+void Mainwin::on_insert_generic_click()
 {
-	std::string s;
-    s = get_string("<b>Enter The Products Name</b>");
-    double cost = get_double("<b>Enter The Products Cost</b>");
-    if(s.size() && cost)
-    {
-    	Options option{s, cost};
-    	store->add_option(option);
-    	on_view_peripheral_click();
-    }
-    else
-    {
-    	
-    }
+	Gtk::Dialog dialog{"Insert a Generic Product",*this};
+	Gtk::Grid grid;
+	
+	Gtk::Label g_name{"Name"};
+	Gtk::Entry n_entry;
+	grid.attach(g_name,0,0,1,1);
+	grid.attach(n_entry,1,0,2,1);
+	
+	Gtk::Label g_cost{"Cost"};
+	Gtk::Entry c_entry;
+	grid.attach(g_cost,0,1,1,1);
+	grid.attach(c_entry,1,1,2,1);
+	
+	dialog.get_content_area()->add(grid);
+	
+	dialog.add_button("Insert", Gtk::RESPONSE_OK);
+	dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+	
+	dialog.show_all();
+	
+	int response;
 
-    
+	std::string name, cost;
+	
+	while((response = dialog.run()) == Gtk::RESPONSE_OK)
+	{
+		if((n_entry.get_text().size() == 0) || (c_entry.get_text().size() == 0))
+		{
+			if(n_entry.get_text().size() == 0)
+				n_entry.set_text("NAME REQUIRED");
+				
+			if(c_entry.get_text().size() == 0)
+				c_entry.set_text("COST REQUIRED");
+				
+			continue;
+		}
+		
+		name = n_entry.get_text();
+		cost = c_entry.get_text();
+		Options* option = new Options{name, std::stod(cost)};
+		store->add_option(*option);
+		n_entry.set_text("");
+		c_entry.set_text("");
+	}
+	on_view_peripheral_click();
+}
+
+void Mainwin::on_insert_ram_click()
+{
+	Gtk::Dialog dialog{"Insert a Generic Product",*this};
+	Gtk::Grid grid;
+	
+	Gtk::Label r_name{"Name"};
+	Gtk::Entry n_entry;
+	grid.attach(r_name,0,0,1,1);
+	grid.attach(n_entry,1,0,2,1);
+	
+	Gtk::Label r_gb{"Size"};
+	Gtk::Entry g_entry;
+	grid.attach(r_gb,0,1,1,1);
+	grid.attach(g_entry,1,1,2,1);
+	
+	Gtk::Label r_cost{"Cost"};
+	Gtk::Entry c_entry;
+	grid.attach(r_cost,0,2,1,1);
+	grid.attach(c_entry,1,2,2,1);
+	
+	dialog.get_content_area()->add(grid);
+	
+	dialog.add_button("Insert", Gtk::RESPONSE_OK);
+	dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+	
+	dialog.show_all();
+	
+	int response;
+
+	std::string name, gb, cost;
+	
+	while((response = dialog.run()) == Gtk::RESPONSE_OK)
+	{
+		if((n_entry.get_text().size() == 0) || (c_entry.get_text().size() == 0) || (g_entry.get_text().size() == 0))
+		{
+			if(n_entry.get_text().size() == 0)
+				n_entry.set_text("NAME REQUIRED");
+				
+			if(g_entry.get_text().size() == 0)
+				g_entry.set_text("SIZE REQUIRED");
+				
+			if(c_entry.get_text().size() == 0)
+				c_entry.set_text("COST REQUIRED");
+				
+			continue;
+		}
+		
+		name = n_entry.get_text();
+		gb = g_entry.get_text();
+		cost = c_entry.get_text();
+		Ram* ram = new Ram{name, std::stod(cost), std::stoi(gb)};
+		store->add_option(*ram);
+		n_entry.set_text("");
+		g_entry.set_text("");
+		c_entry.set_text("");
+	}
+	on_view_peripheral_click();
 }
 
 void Mainwin::on_insert_desktop_click()
@@ -292,16 +395,60 @@ void Mainwin::on_insert_order_click()
 
 void Mainwin::on_insert_customer_click()
 {
+	Gtk::Dialog dialog{"Insert a Customer",*this};
+	Gtk::Grid grid;
+	
+	Gtk::Label c_name{"Name"};
+	Gtk::Entry n_entry;
+	grid.attach(c_name,0,0,1,1);
+	grid.attach(n_entry,1,0,2,1);
+	
+	Gtk::Label c_phone{"Phone"};
+	Gtk::Entry p_entry;
+	grid.attach(c_phone,0,1,1,1);
+	grid.attach(p_entry,1,1,2,1);
+
+	Gtk::Label c_email{"Email"};
+	Gtk::Entry e_entry;
+	grid.attach(c_email,0,2,1,1);
+	grid.attach(e_entry,1,2,2,1);
+	
+	dialog.get_content_area()->add(grid);
+	
+	dialog.add_button("Insert", Gtk::RESPONSE_OK);
+	dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+	
+	dialog.show_all();
+	
+	int response;
+
 	std::string name, phone, email;
-    name = get_string("<b>Enter The Customers Name</b>");
-    if(name.size())
-    {
-    	phone = get_string("<b>Enter Your Phonenumber</b>");
-    	email = get_string("<b>Enter Your email</b>");
-    	Customer customer{name, phone, email};
-    	store->add_customer(customer);
-    	on_view_customer_click();
-    }
+	
+	while((response = dialog.run()) == Gtk::RESPONSE_OK)
+	{
+		if((n_entry.get_text().size() == 0) || (p_entry.get_text().size() == 0) || (e_entry.get_text().size() == 0))
+		{
+			if(n_entry.get_text().size() == 0)
+				n_entry.set_text("NAME REQUIRED");
+				
+			if(p_entry.get_text().size() == 0)
+				p_entry.set_text("PHONE REQUIRED");
+				
+			if(e_entry.get_text().size() == 0)
+				e_entry.set_text("EMAIL REQUIRED");
+			continue;
+		}
+		
+		name = n_entry.get_text();
+		phone = p_entry.get_text();
+		email = e_entry.get_text();
+		Customer customer{name, phone, email};
+		store->add_customer(customer);
+		n_entry.set_text("");
+		p_entry.set_text("");
+		e_entry.set_text("");
+	}
+	on_view_customer_click();
 }
 
 void Mainwin::on_save_click()
@@ -335,7 +482,7 @@ void Mainwin::on_save_as_click()
 
     //Add response buttons the the dialog:
     dialog.add_button("_Cancel", 0);
-    dialog.add_button("_Open", 1);
+    dialog.add_button("_Save", 1);
 
     int result = dialog.run();
 

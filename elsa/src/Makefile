@@ -10,8 +10,8 @@ debug: clean main
 rebuild: clean main
 
 
-main: Main.o Store.o Order.o Customer.o Desktop.o Options.o Mainwin.o Entrydialog.o
-	$(CXX) $(CXXFLAGS) Main.o Store.o Order.o Customer.o Desktop.o Options.o Mainwin.o Entrydialog.o $(GTKFLAGS) -o main
+main: Main.o Store.o Order.o Customer.o Desktop.o Options.o Ram.o Mainwin.o Entrydialog.o
+	$(CXX) $(CXXFLAGS) Main.o Store.o Order.o Customer.o Desktop.o Options.o Ram.o Mainwin.o Entrydialog.o $(GTKFLAGS) -o main
 	
 Main.o: Main.cpp *.h
 	$(CXX) $(CXXFLAGS) -c Main.cpp $(GTKFLAGS) -o Main.o
@@ -30,6 +30,9 @@ Desktop.o: Desktop.cpp *.h
 
 Options.o: Options.cpp *.h
 	$(CXX) $(CXXFLAGS) -c Options.cpp
+	
+Ram.o: Ram.cpp *.h
+	$(CXX) $(CXXFLAGS) -c Ram.cpp
 	
 Mainwin.o: Mainwin.cpp *.h
 	$(CXX) $(CXXFLAGS) -c Mainwin.cpp $(GTKFLAGS) -o Mainwin.o

@@ -5,6 +5,7 @@ Store::Store() {}
 Store::Store(std::istream& ist)
 {
 	int size;
+	std::string str;
 	if(ist >> size)
 	{
 		ist.ignore(32767,'\n');
@@ -21,9 +22,14 @@ Store::Store(std::istream& ist)
 		ist.ignore(32767,'\n');
 		for(int i = 0; i < size; i++)
 		{
-			options.push_back(new Options{ist});
+			ist >> str;
+			if(str == "generic")
+				options.push_back(new Options{ist});
+			else
+				options.push_back(new Ram{ist});
 			if(ist.eof())
 				return;
+			str = "";
 		}
 		size = 0;
 	}
@@ -74,7 +80,7 @@ Customer& Store::customer(int index)
 
 void Store::add_option(Options& option)
 {
-	options.push_back(new Options{option});
+	options.push_back(&option);
 }
 
 int Store::num_options()

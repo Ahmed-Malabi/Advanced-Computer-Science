@@ -1,4 +1,4 @@
-QUESTION 1: Which value of slices did you select for your machine to solve the polynomial with 1 thread with at least a 30 second runtime: 
+QUESTION 1: Which value of slices did you select for your machine to solve the polynomial with 1 thread with at least a 30 second runtime: 150000000
 
 
 QUESTION 2: Provide the output of ``time polyb nn`` (or the improved version in the lecture video, if you prefer) for the following values of nn threads shown below:
@@ -14,60 +14,62 @@ YOUR Timing:
 
 Without threads:
 
-
+real	0m47.203s
+user	0m44.092s
+sys	    0m00.049s
 
 
 With 2 threads:
 
-
-
-
+real	0m22.445s
+user	0m44.330s
+sys	    0m00.052s
 
 
 With 4 threads:
 
-
-
-
+real	0m11.130s
+user	0m22.107s
+sys	    0m00.000s
 
 
 With 6 threads:
 
-
-
-
+real	0m07.203s
+user	0m15.627s
+sys	    0m00.020s
 
 
 With 8 threads:
 
-
-
-
+real	0m05.448s
+user	0m10.730s
+sys	    0m00.004s
 
 
 With 12 threads:
 
-
-
-
+real	0m04.022s
+user	0m07.615s
+sys	    0m00.105s
 
 
 With 24 threads:
 
-
-
+real	0m02.025s
+user	0m03.960s
+sys	    0m00.024s
 
 
 QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
 
-
+yes after around 800 it seems to no longer get more efficent and instead slow down by taking all the time to create all the new threads.
 
 
 
 QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
 
-
-
+Yes, because the more threads you create the more recources required to use them all. infact when i tried 10000 threads i ran out of recources and the program stopped.
 
 
 

@@ -1,5 +1,9 @@
 #include "polynomial.h"
 #include <cmath>
+#include <thread>
+#include <mutex>
+
+std::mutex m;
 
 Polynomial::Polynomial() { }
 Polynomial::Polynomial(std::istream& ist) {
@@ -31,7 +35,17 @@ double Polynomial::operator()(double x) {
 //   tid is a thread id - useful for logger.h messages
 void Polynomial::solve(double min, double max, int nthreads, double slices, double precision) {
     _roots = {};
-    solve_recursive(min, max, 1, slices, precision);
+    int li = min;
+    int ri = min+((max-min)/slices);
+    
+    std::vector<std::thread*> threads;
+    for(int i = 0; i < nthreads; ++i)
+    {
+    	threads.push_back(new std::thread{[=] {this->solve_recursive(li, ri, i, slices/nthreads, precision);}});
+    	li = ri;
+    	ri = max-((max-li)/slices);
+    }
+    for(auto i: threads) i->join();
 }
 // (Internal) recursive search for polynomial solutions
 void Polynomial::solve_recursive(double min, double max, int tid, double slices, double precision, int recursions) {
@@ -48,7 +62,7 @@ void Polynomial::solve_recursive(double min, double max, int tid, double slices,
             if((abs(f(x1+x2)/2) > precision) && ((x2 - x1) > precision) && (recursions < 20)) {
                 solve_recursive(x1, x2, tid, std::min(slices, (x2-x1)/precision), precision, recursions+1); // recurse for more precision
             } else {
-                _roots.push_back((x1+x2)/2);
+                m.lock(); _roots.push_back((x1+x2)/2); m.unlock();
             }
         }
         x1 = x2; 

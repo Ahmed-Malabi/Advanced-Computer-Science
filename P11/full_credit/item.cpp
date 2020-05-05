@@ -1,5 +1,6 @@
 #include "item.h"
 #include <iomanip>
+#include <exception>
 
 Item::Item(std::string name, double cost) : _name{name}, _cost{cost} {}
 
@@ -20,11 +21,10 @@ std::istream& operator>> (std::istream& ist, Item& item)
 	std::size_t found = line.find_last_of(" ");
 	
 	try{
-		if(!std::stod(line.substr(found+1))) throw line.substr(found+1);
-		item._cost = std::stod(line.substr(found+1));
+			item._cost = std::stod(line.substr(found+1));
+			item._name = line.substr(0, found);
 	} catch (std::exception e){
-		std::cerr << "Invalid input for cost: " << e.what() << std::endl;
+		throw std::runtime_error{"'" + line.substr(0, found) + "' cost -> " +line.substr(found+1)};
 	}
-	
-	item._name = line.substr(0, found);
+	return ist;
 }

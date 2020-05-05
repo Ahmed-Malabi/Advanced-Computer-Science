@@ -1,6 +1,6 @@
 CXXFLAGS += --std=c++17
 
-all: main debug test
+all: main debug
 
 
 debug: CXXFLAGS += -g
@@ -8,16 +8,16 @@ debug: clean main
 
 rebuild: clean main
 
-main: item.o cart.o
-	$(CXX) $(CXXFLAGS) -o main item.o cart.o
+main: main.o item.o cart.o
+	$(CXX) $(CXXFLAGS) -o main main.o item.o cart.o
 	
-Main.o: Main.cpp
-	$(CXX) $(CXXFLAGS) -c Main.cpp
+main.o: main.cpp
+	$(CXX) $(CXXFLAGS) -c main.cpp
 	
-Product.o: item.cpp
+item.o: item.cpp
 	$(CXX) $(CXXFLAGS) -c item.cpp
 	
-Taxed.o: cart.cpp
+cart.o: cart.cpp
 	$(CXX) $(CXXFLAGS) -c cart.cpp
 	
 clean:
